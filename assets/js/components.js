@@ -58,10 +58,15 @@
 
   function renderFooter() {
     const enquiryLinks = UI.footerEnquiryLinks.map((l) => `<li><a href="${l.href}">${l.label}</a></li>`).join("");
+    const hasCompanyLinks = UI.footerCompanyLinks.length > 0;
     const companyLinks = UI.footerCompanyLinks.map((l) => `<li><a href="${l.href}">${l.label}</a></li>`).join("");
+    // Reflow to 3 columns instead of 4 when the "Company" column is empty
+    // (e.g. About/Compliance both unlinked) so the footer doesn't leave a
+    // visible gap on the right.
+    const gridStyle = hasCompanyLinks ? "" : ' style="grid-template-columns: 1.3fr 1fr 1fr;"';
 
     return `
-      <div class="footer-grid">
+      <div class="footer-grid"${gridStyle}>
         <div>
           <div class="brand footer-brand">
             <img class="brand-logo" src="${SITE.company.logo}" alt="${SITE.company.shortName} logo">
@@ -77,10 +82,10 @@
           <div class="footer-h">${UI.footerEnquiriesHeading}</div>
           <ul class="footer-list">${enquiryLinks}</ul>
         </div>
-        <div>
+        ${hasCompanyLinks ? `<div>
           <div class="footer-h">${UI.footerCompanyHeading}</div>
           <ul class="footer-list">${companyLinks}</ul>
-        </div>
+        </div>` : ""}
         <div>
           <div class="footer-h">${UI.footerContactHeading}</div>
           <ul class="footer-list">

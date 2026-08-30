@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://minwasinfo.github.io/website/sitemap.xml
+Sitemap: https://minwas.com/sitemap.xml

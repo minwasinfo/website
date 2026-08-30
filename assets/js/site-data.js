@@ -11,11 +11,11 @@
 window.SITE = {
   // The live URL this site is served from, no trailing slash. Used to
   // build absolute links for structured data (JSON-LD). If you move to a
-  // custom domain later, update this one line — also update the literal
+  // different domain later, update this one line — also update the literal
   // URLs in sitemap.xml and robots.txt (those are plain static files, so
   // they can't read this value) and the canonical/og:url tags in each
   // page's <head>.
-  siteUrl: "https://minwasinfo.github.io/website",
+  siteUrl: "https://minwas.com",
 
   company: {
     legalName: "Minwas Advanced Recycling Private Limited",
@@ -47,12 +47,17 @@ window.SITE = {
   formEndpoint: "https://api.web3forms.com/submit",
   formAccessKey: "e9483990-d955-4d90-9dc4-f81deb68faa1",
 
+  // About and Compliance are deliberately unlinked below (content still
+  // has editable placeholders — see README "Known placeholders"). Both
+  // pages carry <meta name="robots" content="noindex, nofollow"> too, so
+  // they're excluded from search results while hidden. Un-comment their
+  // nav + footerCompanyLinks entries when ready to publish them.
   nav: [
     { label: "Home", href: "index.html" },
     { label: "Sell Waste", href: "supply-material.html" },
     { label: "Buy Products", href: "buy-products.html" },
-    { label: "About", href: "about.html" },
-    { label: "Compliance", href: "compliance.html" },
+    // { label: "About", href: "about.html" },
+    // { label: "Compliance", href: "compliance.html" },
     { label: "Contact", href: "contact.html" }
   ],
 
@@ -68,8 +73,8 @@ window.SITE = {
       { label: "General Enquiry", href: "contact.html" }
     ],
     footerCompanyLinks: [
-      { label: "About Us", href: "about.html" },
-      { label: "Compliance & Certifications", href: "compliance.html" }
+      // { label: "About Us", href: "about.html" },
+      // { label: "Compliance & Certifications", href: "compliance.html" }
     ],
     rightsReserved: "All rights reserved."
   }

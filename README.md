@@ -130,10 +130,47 @@ from `site-data.js`:
   (see "Sample-image cards" above).
 - `assets/js/site-data.js` → `analytics.cloudflareToken` — no analytics
   data until this is a real token (see "Analytics & SEO" below).
-- If you move to a custom domain, `siteUrl` in `site-data.js` is one line,
-  but `sitemap.xml`, `robots.txt`, and the `canonical`/`og:*`/`twitter:*`
-  tags in every page's `<head>` are plain static text and won't follow it
-  automatically — those need a find-and-replace across all 6 pages.
+- `about.html` and `compliance.html` are **intentionally unlinked** (their
+  `content/*.js` still has placeholder text) — see "Hidden pages" below.
+- If you move to a different domain, `siteUrl` in `site-data.js` is one
+  line, but `sitemap.xml`, `robots.txt`, `CNAME`, and the
+  `canonical`/`og:*`/`twitter:*` tags in every page's `<head>` are plain
+  static text and won't follow it automatically — those need a
+  find-and-replace across all 6 pages.
+
+## Custom domain (minwas.com)
+
+`CNAME` at the repo root tells GitHub Pages to serve this site at
+`minwas.com` instead of `minwasinfo.github.io/website`. That file alone
+isn't enough — DNS for `minwas.com` also needs to point at GitHub, at
+whoever the domain is registered with (not in this repo):
+
+- **Apex domain** (`minwas.com`) — four `A` records pointing at:
+  `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+- **`www.minwas.com`** (optional, but recommended so it also works) — one
+  `CNAME` record pointing at `minwasinfo.github.io`
+
+DNS changes can take anywhere from a few minutes to ~24 hours to
+propagate. Once GitHub detects it, check the repo's Settings → Pages —
+it should show the domain as verified, and you can turn on "Enforce
+HTTPS" there (GitHub issues the certificate automatically, but only
+after DNS is confirmed correct).
+
+## Hidden pages
+
+`about.html` and `compliance.html` are live (reachable if someone has the
+exact URL) but deliberately kept out of normal discovery until their
+content is finalized:
+
+- Removed from `nav` and `ui.footerCompanyLinks` in `site-data.js`
+  (commented out, not deleted — uncomment to relink both at once)
+- `<meta name="robots" content="noindex, nofollow">` added to each page's
+  `<head>`, so search engines won't index them meanwhile
+- Removed from `sitemap.xml`
+
+To publish either page: uncomment its line in `site-data.js`, delete its
+`noindex` meta tag, add it back to `sitemap.xml`, and replace its
+placeholder content in `content/about.js` or `content/compliance.js`.
 
 ## Analytics & SEO
 
