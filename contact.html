@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Minwas Advanced Recycling</title>
+<meta name="description" content="Get in touch with Minwas Advanced Recycling — plastic pyrolysis plant in Vijayapura, Karnataka. General enquiries, media, and partnerships.">
+<link rel="canonical" href="https://minwasinfo.github.io/website/contact.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Minwas Advanced Recycling">
+<meta property="og:title" content="Contact — Minwas Advanced Recycling">
+<meta property="og:description" content="Get in touch with our plastic pyrolysis plant in Vijayapura, Karnataka. General enquiries, media, and partnerships.">
+<meta property="og:url" content="https://minwasinfo.github.io/website/contact.html">
+<meta property="og:image" content="https://minwasinfo.github.io/website/assets/images/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Contact — Minwas Advanced Recycling">
+<meta name="twitter:description" content="Get in touch with our plastic pyrolysis plant in Vijayapura, Karnataka. General enquiries, media, and partnerships.">
+<meta name="twitter:image" content="https://minwasinfo.github.io/website/assets/images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="assets/images/logo.png">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+
+<header id="site-header"></header>
+
+<main>
+
+  <div class="pagehead">
+    <div class="wrap">
+      <div class="breadcrumb"><a href="index.html">Home</a> / <span data-content="page.crumb"></span></div>
+      <h1 data-content="page.title"></h1>
+      <p data-content="page.introHtml" data-content-html></p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="wrap content-form-grid">
+      <div>
+
+        <h2 style="margin-bottom:1rem;" data-content="detailsHeading"></h2>
+        <div class="table-scroll" style="margin-bottom:2.5rem;">
+          <table class="data-table">
+            <tbody>
+              <tr><th>Plant location</th><td data-site="address"></td></tr>
+              <tr><th>Phone / WhatsApp</th><td><a href="#" data-site="phone" data-site-href="tel"></a></td></tr>
+              <tr><th>Email</th><td><a href="#" data-site="email" data-site-href="mailto"></a></td></tr>
+              <tr><th>Working hours</th><td data-site="hours"></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="map-embed" style="margin-bottom:2.75rem;">
+          <iframe title="Plant location map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" id="map-frame"></iframe>
+        </div>
+
+        <h2 style="margin-bottom:1rem;" data-content="faqHeading"></h2>
+        <div class="faq-list">
+          <template data-repeat="faq">
+            <details class="faq-item"><summary>{{q}}</summary><div class="faq-body">{{aHtml}}</div></details>
+          </template>
+        </div>
+      </div>
+
+      <div class="sticky-form">
+        <h2 style="margin-bottom:0.3rem;" data-content="form.heading"></h2>
+        <p style="font-size:0.88rem; margin-bottom:1.4rem;" data-content="form.responseNote"></p>
+        <form class="enquiry-form form-grid" method="POST">
+          <input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off">
+          <input type="hidden" name="subject" value="General Enquiry — Minwas Advanced Recycling">
+          <input type="hidden" name="form_type" value="General enquiry">
+
+          <div class="form-group">
+            <label>Your name</label>
+            <input type="text" name="name" placeholder="Full name" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Phone</label>
+              <input type="tel" name="phone" inputmode="tel" placeholder="+91 XXXXX XXXXX" pattern="\+?[0-9\s\-]{7,20}" title="Phone number: digits only, optional leading + for country code">
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" name="email" placeholder="your@email.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <select name="category" required>
+              <option value="">Select…</option>
+              <option>General enquiry</option>
+              <option>Media / press</option>
+              <option>Partnership</option>
+              <option>Careers</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea name="message" placeholder="How can we help?" required></textarea>
+          </div>
+          <div class="h-captcha" data-captcha="true"></div>
+          <button type="submit" class="btn btn-primary btn-block" data-content="form.submitLabel"></button>
+          <div class="form-status" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="site-footer"></footer>
+<div id="quick-contact"></div>
+
+<script src="assets/js/site-data.js"></script>
+<script src="assets/js/analytics.js"></script>
+<script src="assets/js/icons.js"></script>
+<script src="content/contact.js"></script>
+<script src="assets/js/components.js"></script>
+<script src="assets/js/render.js"></script>
+<script src="assets/js/forms.js"></script>
+<script src="https://web3forms.com/client/script.js" async defer></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    Render.mount(window.CONTENT);
+    document.getElementById("map-frame").src = window.CONTENT.mapEmbedUrl;
+  });
+</script>
+</body>
+</html>

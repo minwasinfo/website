@@ -1,0 +1,104 @@
+/*
+ * PAGES — layout for content sections that are specific to one or two
+ * pages (hero, split panels, process steps, tile grid, FAQ). Shared UI
+ * (buttons, forms, tables, header/footer) lives in base.css instead.
+ */
+
+/* Hero (index.html) ------------------------------------------------------*/
+.hero { background: var(--paper-panel); color: var(--ink); border-bottom: 1px solid var(--line); }
+.hero-inner { padding: 4.5rem 0 3rem; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 3rem; align-items: center; }
+.badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--accent2-deep); border: 1px solid var(--accent2); background: var(--white); padding: 0.3rem 0.7rem; border-radius: var(--radius);
+  margin-bottom: 1.4rem;
+}
+.badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent2); }
+.hero h1 { margin-bottom: 1.1rem; }
+.hero h1 em { font-style: normal; color: var(--accent); }
+.hero-desc { color: var(--muted); max-width: 480px; margin-bottom: 2rem; font-size: 1.02rem; }
+.hero-ctas { display: flex; gap: 0.9rem; flex-wrap: wrap; }
+
+.process-diagram { width: 100%; height: auto; }
+.process-diagram text { font-family: var(--font-mono); }
+
+.diagram-scroll { overflow-x: auto; margin-bottom: 1rem; }
+.loop-diagram { width: 900px; max-width: none; height: auto; display: block; }
+.loop-diagram text { font-family: var(--font-mono); }
+@media (min-width: 960px) { .loop-diagram { width: 100%; } }
+
+/* Split panels (who we serve) --------------------------------------------*/
+.split-panel { display: grid; grid-template-columns: 1fr 1fr; }
+.panel { padding: 3.5rem var(--gutter); }
+.panel-a { background: var(--accent); color: var(--white); }
+.panel-a p { color: rgba(255,255,255,0.8); }
+.panel-b { background: var(--paper-panel); color: var(--ink); }
+.panel-tag { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.8rem; opacity: 0.9; }
+.panel h2 { margin-bottom: 0.9rem; }
+.panel-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin: 1.4rem 0 1.8rem; font-size: 0.92rem; }
+.panel-list li { display: flex; gap: 0.6rem; }
+.panel-list li::before { content: '—'; flex-shrink: 0; opacity: 0.6; }
+
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; padding: 3rem 0 2rem; }
+  .split-panel { grid-template-columns: 1fr; }
+  .panel { padding: 3rem var(--gutter-mobile); }
+}
+
+/* Process steps (technical, numbered) ------------------------------------*/
+.steps-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem; margin-top: 2.5rem; position: relative; }
+.step { position: relative; padding-top: 1.2rem; border-top: 2px solid var(--line); }
+.step-index { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); margin-bottom: 0.6rem; }
+.step h3 { font-size: 0.98rem; margin-bottom: 0.4rem; }
+.step p { font-size: 0.85rem; }
+
+@media (max-width: 900px) { .steps-row { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .steps-row { grid-template-columns: 1fr; } }
+
+/* Tile grid (materials / why-us teasers) ----------------------------------*/
+.tile-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 2.5rem; }
+.tile { background: var(--white); padding: 1.6rem 1.4rem; }
+.tile .icon-tile { margin-bottom: 0.9rem; }
+.tile h3 { font-size: 0.95rem; margin-bottom: 0.3rem; }
+.tile p { font-size: 0.82rem; }
+
+.section-tint .tile-grid { background: var(--line); border-color: var(--line); margin-top: 2rem; }
+
+@media (max-width: 900px) { .tile-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .tile-grid { grid-template-columns: 1fr; } }
+
+/* FAQ (native details/summary — no JS needed) -----------------------------*/
+.faq-list { display: flex; flex-direction: column; gap: 0.7rem; margin-top: 2rem; }
+.faq-item { border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); }
+.faq-item summary {
+  cursor: pointer; list-style: none; padding: 1.1rem 1.4rem; font-weight: 600; font-size: 0.96rem;
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: '+'; font-family: var(--font-mono); font-size: 1.2rem; color: var(--accent); flex-shrink: 0; }
+.faq-item[open] summary::after { content: '–'; }
+.faq-item .faq-body { padding: 0 1.4rem 1.2rem; font-size: 0.9rem; color: var(--muted); }
+
+/* Map embed ---------------------------------------------------------------*/
+.map-embed { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.map-embed iframe { width: 100%; height: 280px; border: 0; display: block; }
+
+/* Sample-image cards (material/product illustrations) ---------------------*/
+.sample-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin: 1.5rem 0 2.5rem; }
+.sample-card { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.sample-image { background: var(--paper-panel); display: flex; align-items: center; justify-content: center; padding: 1.2rem; aspect-ratio: 1 / 1; }
+.sample-image svg { width: 62%; height: 62%; }
+.sample-caption { padding: 0.8rem 0.9rem; }
+.sample-caption h3 { font-size: 0.88rem; margin-bottom: 0.2rem; }
+.sample-caption p { font-size: 0.78rem; }
+
+.sample-card-sm { width: 150px; margin-bottom: 1.1rem; }
+.sample-card-sm .sample-image { padding: 1.6rem; }
+
+@media (max-width: 560px) { .sample-grid { grid-template-columns: 1fr; } }
+
+/* Page-level two column content + form layout -----------------------------*/
+.content-form-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 3rem; align-items: start; }
+@media (max-width: 900px) { .content-form-grid { grid-template-columns: 1fr; } }
+
+.sticky-form { position: sticky; top: 5.5rem; background: var(--white); border: 1px solid var(--line); border-top: 3px solid var(--accent); border-radius: var(--radius); padding: 1.75rem; }

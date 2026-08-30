@@ -1,0 +1,42 @@
+/*
+ * TOKENS — brand palette, type scale, spacing. This is the file to touch
+ * to reskin the whole site (colors, fonts, radii, spacing). Nothing in
+ * here draws anything by itself — base.css and pages.css consume these.
+ *
+ * Palette: pulled from the company logo (green / brown / charcoal),
+ * on a bright near-white ground.
+ */
+:root {
+  /* -- Color: neutrals (bright, not dull concrete) -- */
+  --paper: #fcfcf9;         /* page background — near-white */
+  --paper-panel: #eef4e9;   /* nav / topbar / footer / tinted section background — light green tint */
+  --white: #ffffff;         /* card / surface background */
+  --ink: #262521;           /* primary text — matches logo's dark charcoal stroke */
+  --muted: #666a5f;         /* secondary text */
+  --line: #dde6d5;          /* default border, on --paper or --white */
+  --line-strong: #4a4a46;   /* higher-contrast border, e.g. outline buttons on light bg */
+
+  /* -- Color: brand accents (from the logo) -- */
+  --accent: #4c7c34;        /* logo green — primary CTA / links / "sell" actions */
+  --accent-deep: #3a6127;
+  --accent2: #8b5a2b;       /* logo brown — secondary CTA / "buy" actions */
+  --accent2-deep: #6e4620;
+  --slate: #5c6a63;         /* muted neutral accent, card rules / icon tiles */
+
+  /* -- Color: semantic (state, not brand) -- */
+  --ok: #3f7a52;
+  --error: #b3401f;
+
+  /* -- Type -- */
+  --font-sans: 'IBM Plex Sans', -apple-system, Segoe UI, Roboto, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+
+  /* -- Spacing / layout -- */
+  --gutter: 4rem;
+  --gutter-mobile: 1.25rem;
+  --radius: 3px;
+  --max-width: 1240px;
+
+  /* -- Motion (kept deliberately minimal) -- */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}

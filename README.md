@@ -1,0 +1,206 @@
+# Minwas Advanced Recycling — website
+
+Plain HTML/CSS/JS, no build step, no framework. Open any `.html` file in a
+browser or push to GitHub Pages — it just works.
+
+## Pages
+
+| File | Purpose |
+|---|---|
+| `index.html` | Landing page — overview, links out to the pages below |
+| `supply-material.html` | Enquiry form for people **selling us** plastic waste (+ quality guidelines) |
+| `buy-products.html` | Enquiry form for people **buying** fuel oil / carbon black (+ quality assurance) |
+| `about.html` | Company mission, values, location |
+| `compliance.html` | Regulatory framework, permits/certifications, environmental practices |
+| `contact.html` | General enquiries, FAQ, map |
+
+## Writing vs. design — where things live
+
+**Every page's copy lives in its own file in `content/`, completely separate
+from the HTML that lays it out.** To change what a page *says*, you almost
+never need to open the `.html` file:
+
+```
+content/
+  home.js             -> text for index.html
+  supply-material.js  -> text for supply-material.html
+  buy-products.js     -> text for buy-products.html
+  about.js            -> text for about.html
+  compliance.js       -> text for compliance.html
+  contact.js          -> text for contact.html
+
+assets/
+  css/
+    tokens.css   -> colors, fonts, spacing. Edit THIS to reskin the site.
+    base.css     -> shared UI: header, footer, buttons, forms, tables.
+    pages.css    -> layout for hero/panels/steps sections specific pages use.
+  js/
+    site-data.js -> company name, address, phone, email, nav links, form
+                    endpoint, and fixed header/footer microcopy. Edit THIS
+                    to update contact info or nav everywhere at once.
+    render.js    -> the engine that fills a page's HTML from its content
+                    file (see "How content binding works" below).
+    icons.js     -> small hand-built line icons (no external icon library/CDN).
+    illustrations.js -> bigger hand-built "sample image" pictograms for
+                    material/product cards (see below) — same idea as
+                    icons.js, just larger and more detailed.
+    components.js-> builds the header/footer/quick-contact bar from
+                    site-data.js and injects them into every page.
+    forms.js     -> wires every `<form class="enquiry-form">` to submit via
+                    Formspree (see site-data.js `formEndpoint`) without
+                    leaving the page.
+  images/
+    logo.png     -> company logo, used for the nav/footer mark and favicon.
+```
+
+### Sample-image cards (no real photos)
+
+The material tiles on `supply-material.html` and the product images on
+`buy-products.html` are hand-drawn illustrations, not photographs — there
+were no licensed product/material photos available when this was built.
+They use the same wiring as icons:
+
+```html
+<div class="sample-card">
+  <div class="sample-image" data-illus="bottle" data-size="88"></div>
+  <div class="sample-caption"><h3>LDPE / HDPE</h3><p>...</p></div>
+</div>
+```
+
+`data-illus` names a key in `assets/js/illustrations.js`. To swap one for a
+real photo later: replace the `<div class="sample-image" data-illus="...">`
+with `<img class="sample-image" src="assets/images/whatever.jpg" alt="...">`
+— the surrounding `.sample-card`/`.sample-caption` CSS doesn't change.
+
+### How content binding works
+
+Each `.html` file is a **template**: structure and CSS classes only, no
+sentences. Each `content/*.js` file is **just data** — an object of
+strings, arrays, and short phrases, no HTML tags to wade through.
+
+Two attributes connect them (see `assets/js/render.js` for the full
+mechanism):
+
+```html
+<!-- one value: pulls CONTENT.hero.title -->
+<h1 data-content="hero.title"></h1>
+
+<!-- a repeated list: renders once per item in CONTENT.steps -->
+<template data-repeat="steps">
+  <div class="step"><h3>{{title}}</h3><p>{{body}}</p></div>
+</template>
+```
+
+So to edit the headline on the homepage, open `content/home.js` and change
+`hero.titleHtml` — you never touch `index.html`. To add a fourth "why us"
+tile, add one more `{ icon, title, desc }` object to the `whyTiles` array in
+`content/home.js`.
+
+Every page has the same three placeholders that `components.js` fills in
+from `site-data.js`:
+
+```html
+<header id="site-header"></header>
+...page content...
+<footer id="site-footer"></footer>
+<div id="quick-contact"></div>
+```
+
+## Common edits
+
+- **Change phone/email/address/hours/nav** → `assets/js/site-data.js`.
+- **Change what any page says** → the matching file in `content/`.
+- **Change colors or fonts** → `assets/css/tokens.css`.
+- **Add a new page** → copy an existing `.html` + its `content/*.js` file as
+  a starting pair; keep the `<head>` block, the three placeholders, and the
+  script tags at the bottom; replace the `data-content`/`data-repeat`
+  markup and the matching content file.
+- **Change what a form emails you** → edit the hidden `subject` input
+  inside that page's `<form class="enquiry-form">`.
+
+## Known placeholders to fill in
+
+- `assets/js/site-data.js` → `formAccessKey` — **forms silently fail until
+  this is a real Web3Forms key** (see "Contact form" below).
+- `content/about.js` → `story` — the actual founding story/milestones.
+- `content/compliance.js` → `permits` — real certificate numbers/dates
+  (currently `[Add status]` / `[Add reference / date]`).
+- Material/product images on `supply-material.html` and `buy-products.html`
+  are illustrations, not real photos — swap in real ones when you have them
+  (see "Sample-image cards" above).
+- `assets/js/site-data.js` → `analytics.cloudflareToken` — no analytics
+  data until this is a real token (see "Analytics & SEO" below).
+- If you move to a custom domain, `siteUrl` in `site-data.js` is one line,
+  but `sitemap.xml`, `robots.txt`, and the `canonical`/`og:*`/`twitter:*`
+  tags in every page's `<head>` are plain static text and won't follow it
+  automatically — those need a find-and-replace across all 6 pages.
+
+## Analytics & SEO
+
+- **Analytics**: [Cloudflare Web Analytics](https://dash.cloudflare.com/) —
+  free, no cookies, no cookie-consent banner needed. Sign up free, add this
+  site under "Web Analytics" (no DNS/nameserver change required), copy the
+  token, paste it into `site-data.js` → `analytics.cloudflareToken`.
+  `assets/js/analytics.js` only loads the beacon once that's a real token.
+- **sitemap.xml** / **robots.txt** — plain static files at the repo root,
+  listing all 6 pages at the `siteUrl` in `site-data.js`. Add a new page to
+  both when you add one to the site.
+- **Structured data** (JSON-LD `LocalBusiness`) is injected into every
+  page's `<head>` by `components.js`, built from `site-data.js` — nothing
+  to maintain separately.
+- **Social share previews** (Open Graph / Twitter Card meta tags) are
+  static per-page in each `<head>`, not JS-generated — chat apps and
+  social platforms that unfurl links don't run JavaScript, so these can't
+  go through the usual content/render.js pipeline. If you change a page's
+  title or description in its `content/*.js` file, update the matching
+  `og:title`/`og:description`/`twitter:title`/`twitter:description` tags
+  in that page's `<head>` too.
+
+## Contact form
+
+Forms post to [Web3Forms](https://web3forms.com) — free, no dashboard
+account, just an access key emailed to you:
+
+1. Go to web3forms.com, click "Create Access Key", enter the company email
+   from `site-data.js` (`company.email`).
+2. Check that inbox for the key.
+3. Paste it into `assets/js/site-data.js` → `formAccessKey`, replacing the
+   `PASTE-YOUR-WEB3FORMS-ACCESS-KEY-HERE` placeholder.
+
+That's it — no per-form setup. All three forms share this one key (via
+`formEndpoint`/`formAccessKey` in `site-data.js`), and submissions land
+straight in that inbox, with the `subject` field telling you which form it
+came from. Free plan covers 250 submissions/month, no time limit, no card.
+
+## Spam protection & validation
+
+- **Phone fields** only accept digits and an optional leading `+` (spaces
+  and hyphens are allowed for readability, e.g. `+91 86182 08700`, but
+  stripped before checking — letters/symbols are rejected). Enforced twice:
+  the HTML `pattern` attribute on each `<input type="tel">` (instant native
+  browser feedback), and `isValidPhone()` in `assets/js/forms.js` (the real
+  enforcement — blocks submission even if a browser ignores `pattern`).
+- **hCaptcha** (`<div class="h-captcha">` + the `web3forms.com/client/script.js`
+  tag at the bottom of each form page) is Web3Forms' zero-config spam
+  check — no signup, no site key to manage, verified on Web3Forms' own
+  server before an email is ever sent, not just a client-side checkbox.
+  This is why it's used instead of a phone/email OTP: a real OTP needs a
+  backend to generate, store, and verify a one-time code, and SMS delivery
+  specifically costs money per message — neither fits a plain static site
+  with no server. hCaptcha + the honeypot (`botcheck`) + Web3Forms' own
+  built-in server-side filtering cover spam without either cost.
+- **Honeypot** (`botcheck`, a checkbox hidden off-screen via `.hp-field`)
+  catches basic bots that fill in every field blindly.
+- **Error messages name the exact field and reason** (e.g. "Email: enter a
+  valid email address.") instead of one generic message — see
+  `validateFields()` in `assets/js/forms.js`. It checks every required
+  field, then phone format, and only checks hCaptcha last — so the
+  captcha message never gets confused with a field problem: if you see
+  it, every other field is already fine.
+
+⚠️ **hCaptcha will never pass on `localhost` — this is expected, not a
+bug.** hCaptcha refuses local/dev hosts by design (the widget shows "Warning:
+localhost detected. Please use a valid host." and never lets you check the
+box). Don't debug this locally — deploy to the real domain (GitHub Pages or
+wherever it ends up) and test there; it works normally on any real
+hostname, no config needed.

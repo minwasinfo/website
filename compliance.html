@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compliance &amp; Certifications — Minwas Advanced Recycling</title>
+<meta name="description" content="Regulatory framework, permits, and environmental practices for Minwas Advanced Recycling's plastic pyrolysis plant in Vijayapura, Karnataka.">
+<link rel="canonical" href="https://minwasinfo.github.io/website/compliance.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Minwas Advanced Recycling">
+<meta property="og:title" content="Compliance &amp; Certifications — Minwas Advanced Recycling">
+<meta property="og:description" content="Regulatory framework, permits, and environmental practices for our plastic pyrolysis plant in Vijayapura, Karnataka.">
+<meta property="og:url" content="https://minwasinfo.github.io/website/compliance.html">
+<meta property="og:image" content="https://minwasinfo.github.io/website/assets/images/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Compliance &amp; Certifications — Minwas Advanced Recycling">
+<meta name="twitter:description" content="Regulatory framework, permits, and environmental practices for our plastic pyrolysis plant in Vijayapura, Karnataka.">
+<meta name="twitter:image" content="https://minwasinfo.github.io/website/assets/images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="assets/images/logo.png">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+
+<header id="site-header"></header>
+
+<main>
+
+  <div class="pagehead">
+    <div class="wrap">
+      <div class="breadcrumb"><a href="index.html">Home</a> / <span data-content="page.crumb"></span></div>
+      <h1 data-content="page.title"></h1>
+      <p data-content="page.intro"></p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 style="margin-bottom:1.25rem;" data-content="frameworkHeading"></h2>
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead><tr><th>Area</th><th>What we follow</th></tr></thead>
+          <tbody>
+            <template data-repeat="framework">
+              <tr><td>{{area}}</td><td>{{detail}}</td></tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-panel">
+    <div class="wrap">
+      <h2 style="margin-bottom:0.9rem;" data-content="permitsHeading"></h2>
+      <div class="callout" style="margin-bottom:1.5rem;">
+        <strong>Editable placeholder</strong>
+        <span data-content="permitsNote"></span>
+      </div>
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead><tr><th>Permit / certificate</th><th>Status</th><th>Reference</th></tr></thead>
+          <tbody>
+            <template data-repeat="permits">
+              <tr><td>{{name}}</td><td>{{status}}</td><td>{{reference}}</td></tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 style="margin-bottom:0.5rem;" data-content="practicesHeading"></h2>
+      <div class="tile-grid">
+        <template data-repeat="practices">
+          <div class="tile"><div class="icon-tile" data-icon="{{icon}}" data-size="22"></div><h3>{{title}}</h3><p>{{desc}}</p></div>
+        </template>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tint">
+    <div class="wrap">
+      <h2 style="margin-bottom:1.5rem;" data-content="docsHeading"></h2>
+      <div class="grid-2">
+        <template data-repeat="docs">
+          <div class="card"><h3>{{title}}</h3><p>{{body}}</p></div>
+        </template>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="wrap" style="text-align:center;">
+      <h2 style="margin-bottom:0.6rem;" data-content="closingCta.title"></h2>
+      <p style="margin:0 auto 1.4rem; max-width:480px;" data-content="closingCta.desc"></p>
+      <a class="btn btn-primary" href="contact.html" data-content="closingCta.buttonLabel"></a>
+    </div>
+  </section>
+
+</main>
+
+<footer id="site-footer"></footer>
+<div id="quick-contact"></div>
+
+<script src="assets/js/site-data.js"></script>
+<script src="assets/js/analytics.js"></script>
+<script src="assets/js/icons.js"></script>
+<script src="content/compliance.js"></script>
+<script src="assets/js/components.js"></script>
+<script src="assets/js/render.js"></script>
+<script src="assets/js/forms.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => Render.mount(window.CONTENT));
+</script>
+</body>
+</html>
