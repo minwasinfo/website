@@ -138,17 +138,28 @@ from `site-data.js`:
   static text and won't follow it automatically — those need a
   find-and-replace across all 6 pages.
 
-## Custom domain (minwas.com)
+## Custom domain (www.minwas.com)
 
 `CNAME` at the repo root tells GitHub Pages to serve this site at
-`minwas.com` instead of `minwasinfo.github.io/website`. That file alone
-isn't enough — DNS for `minwas.com` also needs to point at GitHub, at
-whoever the domain is registered with (not in this repo):
+`www.minwas.com` (the canonical URL — `minwasinfo.github.io/website`
+now 301-redirects here) instead of the other way around. That file alone
+isn't enough — DNS for `minwas.com` needs to point at GitHub too. The
+domain is registered with **GoDaddy**; in GoDaddy's DNS management for
+`minwas.com` (Website Builder may need to be disconnected from the domain
+first, or GoDaddy can lock DNS editing):
 
-- **Apex domain** (`minwas.com`) — four `A` records pointing at:
-  `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-- **`www.minwas.com`** (optional, but recommended so it also works) — one
+- **`www.minwas.com`** (the canonical one `CNAME` points at) — one
   `CNAME` record pointing at `minwasinfo.github.io`
+- **Apex domain** (`minwas.com`, so it redirects to `www` instead of
+  dead-ending) — four `A` records pointing at:
+  `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+
+As of 2026-08-30 neither is configured yet — both `minwas.com` and
+`www.minwas.com` still resolve to GoDaddy's own "Launching Soon" Website
+Builder placeholder, not this site. **Until that DNS is changed, neither
+URL shows this site**, and the old `minwasinfo.github.io/website` link
+now redirects into that same dead end. This is the one remaining step to
+actually go live.
 
 DNS changes can take anywhere from a few minutes to ~24 hours to
 propagate. Once GitHub detects it, check the repo's Settings → Pages —

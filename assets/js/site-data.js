@@ -15,7 +15,7 @@ window.SITE = {
   // URLs in sitemap.xml and robots.txt (those are plain static files, so
   // they can't read this value) and the canonical/og:url tags in each
   // page's <head>.
-  siteUrl: "https://minwas.com",
+  siteUrl: "https://www.minwas.com",
 
   company: {
     legalName: "Minwas Advanced Recycling Private Limited",

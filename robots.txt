@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://minwas.com/sitemap.xml
+Sitemap: https://www.minwas.com/sitemap.xml
