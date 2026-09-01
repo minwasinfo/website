@@ -47,10 +47,15 @@ assets/
     components.js-> builds the header/footer/quick-contact bar from
                     site-data.js and injects them into every page.
     forms.js     -> wires every `<form class="enquiry-form">` to submit via
-                    Formspree (see site-data.js `formEndpoint`) without
-                    leaving the page.
+                    Web3Forms (see site-data.js `formEndpoint`/`formAccessKey`)
+                    without leaving the page.
+    analytics.js -> loads Cloudflare Web Analytics once a real token is set.
+    pwa.js       -> registers sw.js (see "Progressive Web App" below).
   images/
-    logo.png     -> company logo, used for the nav/footer mark and favicon.
+    logo.png, icon-*.png, favicon-32.png
+                 -> logo + generated PWA/favicon icons at each required size.
+manifest.json, sw.js
+                 -> PWA install support (see "Progressive Web App" below).
 ```
 
 ### Sample-image cards (no real photos)
@@ -71,6 +76,36 @@ They use the same wiring as icons:
 real photo later: replace the `<div class="sample-image" data-illus="...">`
 with `<img class="sample-image" src="assets/images/whatever.jpg" alt="...">`
 — the surrounding `.sample-card`/`.sample-caption` CSS doesn't change.
+
+### Progressive Web App (installable on phones)
+
+The site can be "installed" from a phone browser (Chrome's "Add to Home
+Screen" / Safari's "Add to Home Screen") — opens without browser chrome,
+shows a splash screen with the logo, gets its own home-screen icon. This
+doesn't change how the site looks or works in a normal browser tab —
+that's already responsive on its own (see below); this only affects the
+"installed as an app" experience.
+
+- `manifest.json` — name, colors, and icon list. Edit this to change the
+  app name or theme color shown when installed.
+- `sw.js` — a minimal service worker, required by Chrome/Android for the
+  install prompt to appear at all. Deliberately caches almost nothing:
+  only static design assets (CSS, shared JS, logo/icons) get a cache-first
+  strategy. **Pages and `content/*.js` are never cached** — this site's
+  copy changes often, and an installed visitor should always see the
+  latest version, not a stale snapshot. If you add a new static asset file
+  under `assets/`, add it to the `STATIC_ASSETS` list in `sw.js` too (or
+  just leave it uncached — it still works, just skips the speed win).
+- `assets/js/pwa.js` — registers `sw.js`. Runs on every page.
+- Icons (`assets/images/icon-192.png`, `icon-512.png`, `icon-180.png`,
+  `favicon-32.png`) were generated from `logo.png` with a script (not kept
+  in the repo — regenerate with any image tool if the logo changes:
+  square PNGs at 192/512/180px, logo centered on a solid `#fcfcf9`
+  background with ~10–12% padding so it isn't cropped by circular icon
+  masks on Android).
+- `sw.js` **must stay at the repo root**, not in `assets/js/` — a service
+  worker can only control paths at or below wherever it's served from, so
+  moving it would shrink its scope to just that subfolder.
 
 ### How content binding works
 
